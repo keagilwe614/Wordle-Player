@@ -1,0 +1,1 @@
+A complete Python implementation of Wordle featuring an interactive terminal game loop, precise duplicate-handling feedback logic, and an automated solver that filters and outputs possible solutions based on past guess history.
