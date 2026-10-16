@@ -1,0 +1,240 @@
+kay = []
+x = input()
+count = 0
+while x != '###':
+    x = input()
+    kay.append(x)
+    count = count + 1
+print(count)
+
+
+kay = []
+while True:
+    x = input()
+    if x == '###' or len(x)!= 5:
+        break
+    kay.append(x)
+n = input()
+if n in kay :
+    print('Valid')
+else :
+   print('Invalid')
+
+
+input1 = input()
+input2 = input()
+count = 0
+for i in range(len(input1)):
+    count = 0
+    for i in range(len(input2)):
+        if input1[i] == input2[i]:
+            count = count + 1
+print(count)
+
+
+input1 = input()
+input2 = input()
+count = 0
+counts = 0
+for i in range(len(input1)):
+    count = 0
+    counts = 0
+    for i in range(len(input2)):
+        if input1[i] == input2[i]:
+            count = count + 1
+        if  input2[i]   in input1   and input1[i] != input2[i]:
+            counts = counts + 1
+print(count)
+print(counts)
+
+
+input1 = input()
+input2 = input()
+kay = ''
+for i   in range(len(input2)):
+        if input1[i] == input2[i]:
+           kay = kay + input2[i]
+        elif input2[i] in input1 and input1[i] != input2[i] :
+            kay = kay + input2[i].lower()
+        else :
+            kay = kay + '.'
+  print(kay)
+
+
+word1 = input("")
+word2 = input("")
+kay = list(word1)
+used = ["."] * len(word1)
+
+for i in range(len(word1)):
+    if word2[i] == word1[i]:
+        used[i] = word2[i] 
+        kay[i] = None      
+
+for i in range(len(word1)):
+    if used[i] == ".":
+        if word2[i] in kay:
+            used[i] = word2[i].lower() 
+            kay[kay.index(word2[i])] = None
+print("".join(used))
+
+
+def read_dictionary():
+    
+    kay = []
+    while True:
+        x = input()
+        kay.append(x)
+        if x == '###':
+            break
+    return kay
+def compute_response(target, guess):
+    target_list = list(target)
+    response = ["."] * len(target)
+
+
+    for i in range(len(target)):
+        if guess[i] == target[i]:
+            response[i] = guess[i] 
+            target_list[i] = None
+     for i in range(len(target)):
+        if response[i] == ".":
+            if guess[i] in target_list:
+                response[i] = guess[i].lower() 
+                target_list[target_list.index(guess[i])] = None
+      return("".join(response))
+def is_valid(guess, dictionary):
+    if guess in dictionary :
+        return True
+    else :
+       return False
+import random
+dictionary = read_dictionary()
+rng = random.Random(0)
+while True:
+    choice = input("Play a game? (Y/N): ")
+    if choice == 'N':
+        break
+    target = dictionary[rng.randint(0, len(dictionary) - 1)]
+    turns = 0
+    MAX_TURNS = 6
+    while True:
+        if turns == MAX_TURNS:
+            print("Game over! :(")
+            print('The word was: {}'.format(target))
+            break
+        else:
+            guess = input()
+            while not is_valid(guess, dictionary):
+                print('{} is not a valid word!'.format(guess))
+                guess = input()
+
+            print("You guessed: {}".format(guess))
+            response = compute_response(target, guess)
+            print('Response: {}'.format(response))
+            if response == guess:
+                # we won!
+                print("You win! :)")
+                break
+        turns += 1
+
+def read_dictionary():
+    words = []
+    while True:
+        x = input().strip()
+        if x == "###":
+            break
+        words.append(x)
+    return words
+
+def compute_response(target, guess):
+    response = []
+
+    for i in range(len(guess)):
+        if guess[i] == target[i]:
+            response.append(guess[i])  
+        elif guess[i] in target:
+            response.append(guess[i].lower())  
+        else:
+            response.append(".") 
+
+    return "".join(response)
+
+dictionary = read_dictionary()
+num_guesses = int(input())
+
+history = []
+for _ in range(num_guesses):
+    guess = input().strip()
+    response = input().strip()
+    history.append((guess, response))
+
+possible_solutions = []
+
+for word in dictionary:
+    valid = True
+    for guess, expected in history:
+        if compute_response(word, guess) != expected:
+            valid = False
+            break
+    if valid:
+        possible_solutions.append(word)
+possible_solutions.sort()
+for word in possible_solutions:
+    print(word)
+
+def read_dictionary():
+    kay = []
+    while True:
+        x = input()
+        if x == "###":
+            break
+        kay.append(x)
+    return kay
+
+def compute_response(target, guess):
+    response = ["."] * len(target)
+   
+    for i in range(len(guess)):
+        if guess[i] == target[i]:
+            response[i] = guess[i]
+        elif guess[i] in target:
+            response[i] = guess[i].lower()
+    return "".join(response)
+
+dictionary = read_dictionary()
+num_guesses = int(input())
+
+history = []
+for _ in range(num_guesses):
+    g = input()
+    r = input()
+    history.append((g, r))
+
+possible_solutions = []
+
+for word in dictionary:
+    is_possible = True
+    for guess, actual_response in history:
+        
+        if compute_response(word, guess) != actual_response:
+            is_possible = False
+            break
+    
+    if is_possible:
+        possible_solutions.append(word)
+
+possible_solutions.sort()
+for word in possible_solutions:
+    print(word)    
+
+
+
+
+
+
+
+
+
+
+
